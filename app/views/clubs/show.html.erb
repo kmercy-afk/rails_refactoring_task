@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
-    <h1>
-      <%= @club.name %>
-    </h1>
+
+<h1>
+  <%= @club.name %>
+</h1>
 
 <section class="wrapper">
   <%= image_tag @club.logo, size: "250x250" %>
@@ -30,15 +31,15 @@
 
     <p>
       <strong>Players Avarage age</strong>
-      <%= @players_average_age %>
+      <%= @club.players_average_age %>
     </p>
-
   </div>
 </section>
 
 <section>
   <p>
     <h1>Players:</h1>
+
     <table>
       <thead>
         <tr>
@@ -49,6 +50,7 @@
           <th>birthday</th>
         </tr>
       </thead>
+
       <tbody>
         <% @club.players.each do |player| %>
           <tr>

@@ -7,7 +7,7 @@ class Club < ApplicationRecord
   belongs_to :league
 
   def matches
-    Match.where("home_team_id = ? OR away_team_id = ?", self.id, self.id)
+    Match.where("home_team_id = ? OR away_team_id = ?", id, id)
   end
 
   def matches_on(year = nil)
@@ -31,28 +31,38 @@ class Club < ApplicationRecord
   def win_on(year)
     year = Date.new(year, 1, 1)
     count = 0
+
     matches.where(kicked_off_at: year.all_year).each do |match|
       count += 1 if won?(match)
     end
+
     count
   end
 
   def lost_on(year)
     year = Date.new(year, 1, 1)
     count = 0
+
     matches.where(kicked_off_at: year.all_year).each do |match|
       count += 1 if lost?(match)
     end
+
     count
   end
 
   def draw_on(year)
     year = Date.new(year, 1, 1)
     count = 0
+
     matches.where(kicked_off_at: year.all_year).each do |match|
       count += 1 if draw?(match)
     end
+
     count
+  end
+
+  def players_average_age
+    (players.sum(&:age) / players.length).to_f
   end
 
   def homebase

@@ -10,7 +10,6 @@ class ClubsController < ApplicationController
   # GET /clubs/1
   # GET /clubs/1.json
   def show
-    @players_average_age = (@club.players.sum(&:age) / @club.players.length).to_f
   end
 
   # GET /clubs/new
@@ -63,13 +62,19 @@ class ClubsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_club
-      @club = Club.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def club_params
-      params.require(:club).permit(:name, :established_on, :hometown, :country, :color, :manager)
-    end
+  def set_club
+    @club = Club.find(params[:id])
+  end
+
+  def club_params
+    params.require(:club).permit(
+      :name,
+      :established_on,
+      :hometown,
+      :country,
+      :color,
+      :manager
+    )
+  end
 end
